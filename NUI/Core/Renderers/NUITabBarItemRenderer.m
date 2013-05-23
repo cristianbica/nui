@@ -11,11 +11,17 @@
 @implementation NUITabBarItemRenderer
 
 + (void)render:(UITabBarItem*)item withClass:(NSString*)className
-{   
+{
     NSDictionary *titleTextAttributes = [NUIUtilities titleTextAttributesForClass:className];
     
     if ([[titleTextAttributes allKeys] count] > 0) {
         [item setTitleTextAttributes:titleTextAttributes forState:UIControlStateNormal];
+    }
+    
+    titleTextAttributes = [NUIUtilities titleTextAttributesForClass:className withSuffix:@"selected"];
+    
+    if ([[titleTextAttributes allKeys] count] > 0) {
+        [item setTitleTextAttributes:titleTextAttributes forState:UIControlStateSelected];
     }
     
     if ([NUISettings hasProperty:@"text-offset" withClass:className]) {
