@@ -51,7 +51,7 @@
     
     property = @"font-size";
     if ([NUISettings hasProperty:property withClass:className]) {
-        label.font = [label.font fontWithSize:[NUISettings getFloat:property withClass:className]];
+        label.font = [UIFont fontWithName:label.font.fontName size:[NUISettings getFloat:property withClass:className]];
     }
     
     property = @"font-name";
