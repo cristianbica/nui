@@ -31,10 +31,14 @@
 
     // didMoveToWindow isn't called on UITabBarItems, so we need to use awakeFromNib instead.
     [self swizzleAwakeFromNib:[UITabBarItem class]];
-    
+
     [self swizzle:[UITextField class] methodName:@"textRectForBounds:"];
     [self swizzle:[UITextField class] methodName:@"editingRectForBounds:"];
     [self swizzle:[UIWindow class] methodName:@"becomeKeyWindow"];
+
+    [self swizzleDealloc:[UINavigationBar class]];
+    [self swizzleDealloc:[UITabBar class]];
+    [self swizzleDealloc:[UITableViewCell class]];
 }
 
 - (void)swizzleAwakeFromNib:(Class)class
@@ -45,6 +49,10 @@
 - (void)swizzleDidMoveToWindow:(Class)class
 {
     [self swizzle:class methodName:@"didMoveToWindow"];
+}
+
+- (void)swizzleDealloc:(Class)class {
+    [self swizzle:class methodName:@"dealloc"];
 }
 
 - (void)swizzle:(Class)class methodName:(NSString*)methodName
