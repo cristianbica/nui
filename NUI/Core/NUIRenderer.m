@@ -199,6 +199,20 @@ static NUIRenderer *instance = nil;
 
 
 
++ (void)renderTableView:(UITableView*)tableView
+{
+    [NUITableViewRenderer render:tableView withClass:@"Table"];
+    [self registerObject:tableView];
+}
+
++ (void)renderTableView:(UITableView*)tableView withClass:(NSString*)className
+{
+    [NUITableViewRenderer render:tableView withClass:className];
+    [self registerObject:tableView];
+}
+
+
+
 + (void)renderTableViewCell:(UITableViewCell*)cell
 {
     [NUITableViewCellRenderer render:cell withClass:@"TableCell"];
@@ -212,6 +226,7 @@ static NUIRenderer *instance = nil;
 }
 
 
+
 + (void)renderToolbar:(UIToolbar*)bar
 {
     [NUIToolbarRenderer render:bar withClass:@"Toolbar"];
@@ -223,6 +238,7 @@ static NUIRenderer *instance = nil;
     [NUIToolbarRenderer render:bar withClass:className];
     [self registerObject:bar];
 }
+
 
 
 + (void)renderTextField:(UITextField*)textField
@@ -282,6 +298,10 @@ static NUIRenderer *instance = nil;
     [NUITableViewCellRenderer sizeDidChange:cell];
 }
 
++ (void)sizeDidChangeForTableView:(UITableView*)tableView
+{
+    [NUITableViewRenderer sizeDidChange:tableView];
+}
 
 + (void)addOrientationDidChangeObserver:(id)observer
 {
