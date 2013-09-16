@@ -92,22 +92,22 @@ static NUISettings *instance = nil;
 }
 
 + (BOOL)getBoolean:(NSString*)property withClass:(NSString*)className
-{   
+{
     return [NUIConverter toBoolean:[self get:property withClass:className]];
 }
 
 + (float)getFloat:(NSString*)property withClass:(NSString*)className
-{   
+{
     return [NUIConverter toFloat:[self get:property withClass:className]];
 }
 
 + (CGSize)getSize:(NSString*)property withClass:(NSString*)className
-{   
+{
     return [NUIConverter toSize:[self get:property withClass:className]];
 }
 
 + (UIOffset)getOffset:(NSString*)property withClass:(NSString*)className
-{   
+{
     return [NUIConverter toOffset:[self get:property withClass:className]];
 }
 
@@ -117,7 +117,7 @@ static NUISettings *instance = nil;
 }
 
 + (UITextBorderStyle)getBorderStyle:(NSString*)property withClass:(NSString*)className
-{   
+{
     return [NUIConverter toBorderStyle:[self get:property withClass:className]];
 }
 
@@ -127,7 +127,7 @@ static NUISettings *instance = nil;
 }
 
 + (UIColor*)getColor:(NSString*)property withClass:(NSString*)className
-{   
+{
     return [NUIConverter toColor:[self get:property withClass:className]];
 }
 
@@ -175,14 +175,11 @@ static NUISettings *instance = nil;
 
 + (NUISettings*)getInstance
 {
-    @synchronized(self) {    
-        if (instance == nil) {
-            [[NUISwizzler new] swizzleAll];
-            instance = [NUISettings new];
-        }
-    }
-    
-    return instance;
+    static dispatch_once_t pred;
+    __strong static classname * sharedNUISettings = nil;
+    dispatch_once( &pred, ^{
+    sharedNUISettings = [[self alloc] init]; });
+    return sharedNUISettings;
 }
 
 + (void)setGlobalExclusions:(NSArray *)array
