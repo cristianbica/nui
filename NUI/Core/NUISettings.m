@@ -176,9 +176,11 @@ static NUISettings *instance = nil;
 + (NUISettings*)getInstance
 {
     static dispatch_once_t pred;
-    __strong static classname * sharedNUISettings = nil;
+    __strong static NUISettings * sharedNUISettings = nil;
     dispatch_once( &pred, ^{
-    sharedNUISettings = [[self alloc] init]; });
+        [[NUISwizzler new] swizzleAll];
+        sharedNUISettings = [NUISettings new];
+    });
     return sharedNUISettings;
 }
 
